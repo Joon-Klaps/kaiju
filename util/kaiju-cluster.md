@@ -5,9 +5,9 @@ Single-command tool to run Kaiju (with `-v`) and cluster reads/contigs by Jaccar
 Two modes:
 
 - Run Kaiju and cluster:
-  - `tools/kaiju-cluster run -t nodes.dmp -f kaiju_db.fmi -i contigs.fasta -o membership.tsv [kaiju opts] [cluster opts]`
+  - `utils/kaiju-cluster.py run -t nodes.dmp -f kaiju_db.fmi -i contigs.fasta -o membership.tsv [kaiju opts] [cluster opts]`
 - Cluster an existing Kaiju TSV:
-  - `tools/kaiju-cluster cluster -i kaiju.out -o membership.tsv [cluster opts]`
+  - `utils/kaiju-cluster.py cluster -i kaiju.out -o membership.tsv [cluster opts]`
 
 Input (Kaiju `-v` TSV) columns:
 
