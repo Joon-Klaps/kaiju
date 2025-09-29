@@ -13,3 +13,4 @@ kaiju-convertRefSeq
 mkbwt
 mkfmi
 bin/
+test/data

@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
 	// --------------------- START ------------------------------------------------------------------
 	// Read command line params
 	int c;
-	while ((c = getopt(argc, argv, "a:hdpxXvn:m:e:E:l:t:f:i:j:s:z:o:")) != -1) {
+	while ((c = getopt(argc, argv, "a:hdpxXvn:m:e:E:l:t:f:i:j:s:z:o:S:I:A:")) != -1) {
 		switch (c)  {
 			case 'a': {
 									if("mem" == std::string(optarg)) {
@@ -189,6 +189,33 @@ int main(int argc, char** argv) {
 									catch (const std::out_of_range& oor) {
 										std::cerr << "Invalid argument in -z " << optarg << std::endl;
 									}
+									break;
+								}
+			case 'S': {
+									try {
+										unsigned long v = std::stoul(optarg);
+										if(v == 0) { error("Max matches (-S) must be > 0."); usage(argv[0]); }
+										config->max_matches_SI = (size_t)v;
+									}
+									catch(...) { std::cerr << "Invalid argument in -S " << optarg << std::endl; }
+									break;
+								}
+			case 'I': {
+									try {
+										unsigned long v = std::stoul(optarg);
+										if(v == 0) { error("Max match ids (-I) must be > 0."); usage(argv[0]); }
+										config->max_match_ids = (size_t)v;
+									}
+									catch(...) { std::cerr << "Invalid argument in -I " << optarg << std::endl; }
+									break;
+								}
+			case 'A': {
+									try {
+										unsigned long v = std::stoul(optarg);
+										if(v == 0) { error("Max match accessions (-A) must be > 0."); usage(argv[0]); }
+										config->max_match_acc = (size_t)v;
+									}
+									catch(...) { std::cerr << "Invalid argument in -A " << optarg << std::endl; }
 									break;
 								}
 			default:
@@ -445,6 +472,9 @@ void usage(char *progname) {
 	fprintf(stderr, "   -x            Enable SEG low complexity filter (enabled by default)\n");
 	fprintf(stderr, "   -X            Disable SEG low complexity filter\n");
 	fprintf(stderr, "   -p            Input sequences are protein sequences\n");
+	fprintf(stderr, "   -S INT        Max number of best matches (SI) kept for LCA/output (default: 40)\n");
+	fprintf(stderr, "   -I INT        Max number of taxon ids kept for LCA/output (default: 40)\n");
+	fprintf(stderr, "   -A INT        Max number of accessions kept for output (default: 40)\n");
 	fprintf(stderr, "   -v            Enable verbose output\n");
 	//fprintf(stderr, "   -d            Enable debug output.\n");
 	exit(EXIT_FAILURE);
